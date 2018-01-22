@@ -17,6 +17,10 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::post('/user', [
+Route::post('/user/signup', [
     'uses' => 'UserController@signup'
+]);
+
+Route::post('/user/signin', [
+    'uses' => 'UserController@signin'
 ]);
