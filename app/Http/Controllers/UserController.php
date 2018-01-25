@@ -10,14 +10,15 @@ use JWTAuth;
 class UserController extends Controller
 {
     public function signup(Request $request){
+
         $this->validate($request, [
-            'name' => 'required',
+            'username' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
 
         $user = new User([
-            'name' => $request->input('name'),
+            'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password'))
         ]);
@@ -31,27 +32,35 @@ class UserController extends Controller
 
     public function signin(Request $request){
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->all();
+        $login_type = filter_var( $credentials['username'], FILTER_VALIDATE_EMAIL ) ? 'email' : 'username';
 
         try {
-            if(!$token = JWTAuth::attempt($credentials)) {
+            if(!$token = JWTAuth::attempt([$login_type => $credentials['username'], 'password' => $credentials['password']])) {
                 return response()->json([
-                    'error' => 'Invalid Credentials!'
+                    'errors' => array(
+                        'login' => 'Invalid Credentials!'
+                    )            
                 ], 401);
             }
         } catch(JWTException $e) {
             return response()->json([
-                'error' => 'Could not create token!'
+                'errors' => array(
+                    'login' => 'Could not create token!'
+                )
             ], 500);
         }
 
         return response()->json([
             'token' => $token
         ]);
+    }
+    public function checkUser(Request $request){
+        $token = JWTAuth::getToken();
+        return $token;
     }
 }

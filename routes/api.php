@@ -24,3 +24,8 @@ Route::post('/user/signup', [
 Route::post('/user/signin', [
     'uses' => 'UserController@signin'
 ]);
+
+Route::get('/user/check', [
+    'uses' => 'UserController@checkUser',
+    'middleware' => ['auth.jwt', 'auth.jwt.refresh']
+]);
