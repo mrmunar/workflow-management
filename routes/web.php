@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::middleware(['auth.jwt'])->group(function () {
+    Route::get('/', [
+        'uses' => 'welcome@index'
+    ]);
 });
