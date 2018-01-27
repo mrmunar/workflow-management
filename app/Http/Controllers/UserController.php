@@ -59,7 +59,8 @@ class UserController extends Controller
             'token' => $token
         ]);
     }
-    public function checkUser(Request $request){
+    
+    public function isLoggedIn(Request $request){
         $token = JWTAuth::getToken();
         return $token;
     }
