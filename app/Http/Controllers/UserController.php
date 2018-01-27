@@ -49,13 +49,9 @@ class UserController extends Controller
             }
         } catch(JWTException $e) {
             return response()->json([
-<<<<<<< HEAD
-                'error' => 'Could not create token!'
-=======
                 'errors' => array(
                     'login' => 'Could not create token!'
                 )
->>>>>>> #6-Login-feature
             ], 500);
         }
 
@@ -63,11 +59,9 @@ class UserController extends Controller
             'token' => $token
         ]);
     }
-<<<<<<< HEAD
-=======
-    public function checkUser(Request $request){
+    
+    public function isLoggedIn(Request $request){
         $token = JWTAuth::getToken();
         return $token;
     }
->>>>>>> #6-Login-feature
 }
