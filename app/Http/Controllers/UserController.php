@@ -61,7 +61,9 @@ class UserController extends Controller
     }
     
     public function isLoggedIn(Request $request){
-        $token = JWTAuth::getToken();
-        return $token;
+        $new_token = JWTAuth::refresh($request->query('token'));
+        return response()->json([
+            'token' => $new_token
+        ]);
     }
 }
