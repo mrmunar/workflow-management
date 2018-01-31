@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+// Users
+
 Route::post('/user/signup', [
     'uses' => 'UserController@signup'
 ]);
@@ -29,3 +31,10 @@ Route::get('/user/isLoggedIn', [
     'uses' => 'UserController@isLoggedIn',
     'middleware' => ['auth.jwt']
 ]);
+
+// Workflow Management
+Route::middleware(['auth.jwt'])->group(function () {
+    Route::post('/workflowmanagement/createworkflowheader', [
+        'uses' => 'WorkflowManagementController@createWorkflowHeader'
+    ]);
+});
