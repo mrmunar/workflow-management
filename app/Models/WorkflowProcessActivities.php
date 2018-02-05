@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WorkflowHeader extends Model
+class WorkflowProcessActivities extends Model
 {
     protected $fillable = [
-        'workflow_header_desc', 'workflow_process_id'
+        'process_id', 'activity_id', 'processor'
     ];
 }

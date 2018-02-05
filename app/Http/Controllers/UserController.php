@@ -66,4 +66,11 @@ class UserController extends Controller
             'token' => $new_token
         ]);
     }
+
+    public function getUsersForDropdown(){
+        $users = User::select('id', 'username')->get();
+        return response()->json([
+            'result' => $users
+        ], 201);
+    }
 }

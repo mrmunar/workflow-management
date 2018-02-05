@@ -27,14 +27,49 @@ Route::post('/user/signin', [
     'uses' => 'UserController@signin'
 ]);
 
-Route::get('/user/isLoggedIn', [
-    'uses' => 'UserController@isLoggedIn',
-    'middleware' => ['auth.jwt']
-]);
+Route::middleware(['auth.jwt'])->group(function () {
+
+    Route::get('/user/isLoggedIn', [
+        'uses' => 'UserController@isLoggedIn',
+        'middleware' => ['auth.jwt']
+    ]);
+
+    Route::get('/user/getUsersForDropdown', [
+        'uses' => 'UserController@getUsersForDropdown',
+        'middleware' => ['auth.jwt']
+    ]);
+
+});
+
 
 // Workflow Management
 Route::middleware(['auth.jwt'])->group(function () {
-    Route::post('/workflowmanagement/createworkflowheader', [
-        'uses' => 'WorkflowManagementController@createWorkflowHeader'
+
+    Route::post('/workflowmanagement/createUpdateWorkflowHeader', [
+        'uses' => 'WorkflowManagementController@createUpdateWorkflowHeader'
+    ]);
+
+    Route::get('/workflowmanagement/getWorkflowProcessForDropdown', [
+        'uses' => 'WorkflowManagementController@getWorkflowProcessForDropdown'
+    ]);
+    
+    Route::post('/workflowmanagement/createUpdateWorkflowProcess', [
+        'uses' => 'WorkflowManagementController@createUpdateWorkflowProcess'
+    ]);
+
+    Route::post('/workflowmanagement/createUpdateWorkflowProcessActivities', [
+        'uses' => 'WorkflowManagementController@createUpdateWorkflowProcessActivities'
+    ]);
+    
+    Route::get('/workflowmanagement/getParamsActivitiesForDropdown', [
+        'uses' => 'WorkflowManagementController@getParamsActivitiesForDropdown'
+    ]);
+    
+    Route::get('/workflowmanagement/checkIfProcessAndActivityExists', [
+        'uses' => 'WorkflowManagementController@checkIfProcessAndActivityExists'
     ]);
 });
+
+Route::get('/workflowmanagement/getWorkflows', [
+    'uses' => 'WorkflowManagementController@getWorkflows'
+]);

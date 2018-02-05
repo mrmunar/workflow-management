@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorkflowProcessTable extends Migration
+class CreateWorkflowProcessesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateWorkflowProcessTable extends Migration
      */
     public function up()
     {
-        Schema::create('workflow_process', function (Blueprint $table) {
+        Schema::create('workflow_processes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('workflow_process_desc');
+            $table->string('workflow_process_desc');
             $table->timestamps();
         });
     }
@@ -27,8 +27,8 @@ class CreateWorkflowProcessTable extends Migration
      */
     public function down()
     {
-        Schema::table('workflow_process', function (Blueprint $table) {
-            Schema::dropIfExists('workflow_process');
+        Schema::table('workflow_processes', function (Blueprint $table) {
+            Schema::dropIfExists('workflow_processes');
         });
     }
 }

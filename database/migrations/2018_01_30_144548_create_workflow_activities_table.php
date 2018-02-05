@@ -13,10 +13,11 @@ class CreateWorkflowActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('workflow_activities', function (Blueprint $table) {
+        Schema::create('workflow_process_activities', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('process_id');
             $table->integer('activity_id');
-            $table->string('processor');
+            $table->integer('processor');
             $table->timestamps();
         });
     }
@@ -28,8 +29,8 @@ class CreateWorkflowActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('workflow_activities', function (Blueprint $table) {
-            Schema::dropIfExists('workflow_activities');
+        Schema::table('workflow_process_activities', function (Blueprint $table) {
+            Schema::dropIfExists('workflow_process_activities');
         });
     }
 }
